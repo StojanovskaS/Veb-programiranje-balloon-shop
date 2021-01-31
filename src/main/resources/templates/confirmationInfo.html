@@ -1,0 +1,52 @@
+<th:block xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+
+<form method="POST" action="/ConfirmationInfo" >
+
+    <h1>Balloon Order page - Order confirmation </h1>
+
+    <table>
+        <tr>
+            <th colspan="2">
+                Your Order Status
+            </th>
+        </tr>
+        <tr>
+            <td><b>Client Name </b></td>
+
+            <td> <th:block th:text="${clientName}"></th:block></td>
+        </tr>
+        <tr>
+            <td><b>ClientAddress </b></td>
+            <td><th:block th:text="${clientAddress}"></th:block></td>
+
+<!--            <td><th:block th:text="${session.order.getUser().getEmail()}"></th:block></td>-->
+        </tr>
+        <tr>
+            <td><b>Client IP Address</b></td>
+            <td><th:block th:text="${adrr}"></th:block></td>
+        </tr>
+        <tr>
+            <td><b>Client Browser</b></td>
+            <td><th:block th:text="${userA}"></th:block></td>
+        </tr>
+        <tr>
+            <td><b>Balloon Color </b></td>
+           <td><th:block th:text="${ballooncolor}"></th:block></td>
+
+        </tr>
+        <tr>
+            <td><b>Balloon Size </b></td>
+            <td><th:block th:text="${size}"></th:block></td>
+        </tr>
+    </table>
+<!--    <div>-->
+<!--        <a method="GET" action="/logout">Log out</a>-->
+<!--    </div>-->
+    <form action="/ConfirmationInfo" th:method="POST">
+        <button type="submit">View Orders</button>
+    </form>
+
+
+</form>
+
+</th:block>

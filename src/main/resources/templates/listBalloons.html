@@ -1,0 +1,81 @@
+<th:block xmlns:th="http://www.thymeleaf.org">
+
+<!--<form action="/search" method="GET">-->
+<!--    Search: <input type="text" name="keyword" id="keyword" size="50"/>-->
+<!--    <input type="submit" value="Search" />-->
+<!--</form>-->
+    <form id="filter-form">
+
+        <label for="nameSearch">Name</label>
+        <input id="nameSearch" type="text" name="nameSearch"/>
+        <label for="descSearch">Description</label>
+        <input id="descSearch" type="text" name="descSearch"/>
+
+        <button id="filter" type="submit">Filter</button>
+    </form>
+<table>
+    <thead>
+    <th>Najdeni</th>
+    </thead>
+    <tbody>
+    <tr th:each="najden : ${listB}">
+        <td th:text="${najden?.getName()}"></td>
+        <td th:text="${najden?.getDescription()}"></td>
+        <td th:text="${najden?.getManufacturer().name}"></td>
+
+    </tr>
+
+
+    </tbody>
+</table>
+
+<h2>Balloon's list:</h2>
+
+<div th:if="${hasError}">
+    <h5  th:text="${error}"></h5>
+</div>
+<table class="tabela1">
+    <thead>
+    <tr>
+        <th scope="col">Balloon name</th>
+        <th scope="col">Description</th>
+        <th scope="col">Manufacturer</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="el: ${lista}" class="balloons">
+        <td th:text="${el.getName()}"></td>
+        <td th:text="${el.getDescription()}"></td>
+        <td th:text="${el.getManufacturer() != null} ? ${el.getManufacturer().getName()} : 'Nema proizveduvac!'"></td>
+        <td>
+            <th:block sec:authorize="hasRole('ROLE_ADMIN')">
+                <form th:action="@{'/balloons/delete/{id}' (id=${el.getId()})}" th:method="DELETE" >
+                    <button type="submit" class="btn btn-sm btn-danger delete-balloon">DELETE</button>
+                </form>
+            </th:block>
+            <th:block  sec:authorize="hasRole('ROLE_ADMIN')">
+                <a class="col-sm-12 col-md-12 edit-balloon" th:href="@{'/balloons/edit-form/{id}' (id=${el.getId()})}">Edit</a>
+            </th:block>
+
+        </td>
+    </tr>
+    </tbody>
+</table>
+
+<div  class="col-sm-12 col-md-12" sec:authorize="hasRole('ROLE_ADMIN')">
+    <a href="/balloons/add-form" class="btn btn-block btn-dark add-balloon">Add new product</a>
+</div>
+<th:block sec:authorize="isAuthenticated()">
+<form method="POST" action="/balloons/colourSelect">
+    <h2>Choose balloon color:</h2>
+    <input type="radio" name="color" value="Red Balloon"> Red Balloon<br/>
+    <input type="radio" name="color" value="Green Balloon"> Green Balloon<br/>
+    <input type="radio" name="color" value="Yellow Balloon"> Yellow Balloon<br/>
+    <input type="radio" name="color" value="Blue Balloon"> Blue Balloon<br/>
+
+    <br/>
+<!--    <a th:method="GET" th:href="@{/selectBalloon}">Submit</a>-->
+    <input type="submit" value="Submit">
+</form>
+</th:block>
+</th:block>

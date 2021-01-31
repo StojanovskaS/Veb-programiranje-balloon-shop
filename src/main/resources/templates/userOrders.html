@@ -1,0 +1,38 @@
+<th:block xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+
+<section class="jumbotron text-center">
+    <div class="container">
+        <h3 class="jumbotron-heading">Shopping cart for
+            <th:block th:if="${session.user != null}" th:text="${session.user.getEmail()}"></th:block>
+        </h3>
+    </div>
+</section>
+
+
+<div class="container mb-4">
+    <div class="row">
+        <div class="col-12" th:if="${orders.size() > 0}">
+            <div class="table-responsive">
+                <table class="table table-striped">
+                    <thead>
+                    <tr>
+                        <th scope="col">Balloon color</th>
+                        <th scope="col">Balloon size</th>
+                        <th scope="col">Clent Name</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr th:each="product : ${orders}">
+                        <td th:text="${product.getBalloonColor()}"></td>
+                        <td th:text="${product.getBalloonSize()}"></td>
+                        <td th:text="${product.getUser().getName()}"></td>
+
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+</th:block>
+
